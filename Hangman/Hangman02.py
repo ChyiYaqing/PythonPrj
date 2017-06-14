@@ -1,9 +1,12 @@
-"""Hangman
-Standard game of Hangman. A word is chosen at random from a list and the
-user must guess the word letter by letter before running out of attempts.
-https://codereview.stackexchange.com/questions/95997/simple-game-of-hangman
+"""
+A simple Hangman game
+https://en.wikipedia.org/wiki/Hangman_(game)
+Hangman is a paper and pencil guessing game of two or more players.
+One player thinks of a word, phrase or sentence and the other tries
+to guess it by suggesting letters or numbers, within a certain number of guesses.
 """
 
+import sys
 import random
 
 def main():
@@ -21,27 +24,6 @@ def main():
     while play_again:
         # set up the game loop
 
-        words = [
-                "hangman",
-                "chairs",
-                "backpack",
-                "bodywash",
-                "clothing",
-                "computer",
-                "python",
-                "program",
-                "glasses",
-                "sweatshirt",
-                "sweatpants",
-                "mattress",
-                "friends",
-                "clocks",
-                "biology",
-                "algebra",
-                "suitcase",
-                "knives",
-                "ninjas",
-                "shampoo"]
         # Unixwords is simply a newline-delimited list of dictionary words.
         # rstrip("\n") rstrip lets you pass in what characters you want to remove from the end of a string.
         chosen_word = random.choice(open("Unixwords").readlines()).lower().rstrip("\n")
@@ -50,33 +32,39 @@ def main():
         word_guessed = []
         for letter in chosen_word:
             word_guessed.append("-") # create an unguessed, blank version of the word
+        randomNumber = random.randrange(len(chosen_word))
+        word_guessed[randomNumber] = chosen_word[randomNumber] # give a hint character
         joined_word = None # joins the words in the list word_guessed
 
         HANGMAN = (
-            "-----\n|   |\n|\n|\n|\n|\n|\n|\n|\n--------",
-            "-----\n|   |\n|   0\n|\n|\n|\n|\n|\n|\n--------",
-            "-----\n|   |\n|   0\n|  -+-\n|\n|\n|\n|\n|\n--------",
-            "-----\n|   |\n|   0\n| /-+-\n|\n|\n|\n|\n|\n--------",
-            "-----\n|   |\n|   0\n| /-+-\ \n|\n|\n|\n|\n|\n--------",
-            "-----\n|   |\n|   0\n| /-+-\ \n|   |\n|\n|\n|\n|\n--------",
-            "-----\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|\n|\n|--------",
-            "-----\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|  |\n|\n|\n--------",
-            "-----\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|  |\n|  |\n|\n--------",
-            "-----\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|  | |\n|  |\n|\n--------",
-            "-----\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|  | |\n|  | |\n|\n--------"
+            "--------\n|   |\n|\n|\n|\n|\n|\n|\n|\n--------",
+            "--------\n|   |\n|   0\n|\n|\n|\n|\n|\n|\n--------",
+            "--------\n|   |\n|   0\n|  -+-\n|\n|\n|\n|\n|\n--------",
+            "--------\n|   |\n|   0\n| /-+-\n|\n|\n|\n|\n|\n--------",
+            "--------\n|   |\n|   0\n| /-+-\ \n|\n|\n|\n|\n|\n--------",
+            "--------\n|   |\n|   0\n| /-+-\ \n|   |\n|\n|\n|\n|\n--------",
+            "--------\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|\n|\n|--------",
+            "--------\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|  |\n|\n|\n--------",
+            "--------\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|  |\n|  |\n|\n--------",
+            "--------\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|  | |\n|  |\n|\n--------",
+            "--------\n|   |\n|   0\n| /-+-\ \n|   |\n|   |\n|  | |\n|  | |\n|\n--------"
         )
 
         print(HANGMAN[0])
         attempts = len(HANGMAN) - 1
 
-
         while (attempts != 0 and "-" in word_guessed):
             print(("\nYou have {} attempts remaining").format(attempts))
             joined_word = "".join(word_guessed)
-            print(joined_word)
-
+            print(("The letter : {}").format(joined_word))
+            print(("You have guess letter : {}").format(guessed_letters))
             try:
                 player_guess = str(input("\nPlease select a letter between A-Z" + "\n> ")).lower()
+            except KeyboardInterrupt:
+                print("Ok ok, quitting")
+                sys.exit(1)
+            except EOFError: # Ctrl+D will cause EOFError exception
+                sys.exit(0)
             except: # check valid input
                 print("That is not valid input. Please try again.")
                 continue
@@ -116,3 +104,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+"""
+To-Do:
+    Add translate
+    http://pythonhosted.org/goslate/
+
+"""
