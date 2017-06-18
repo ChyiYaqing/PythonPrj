@@ -1,0 +1,39 @@
+Course Outline:
+    
+    1. Environmental
+        Python3+pip
+        MongoDB
+        Redis
+        MySQL
+        Python Multi-version coexistence configuration
+        Python Spider Common library installation
+    2. Dundamentals
+        Web Spider fundamental
+        Urllib library Basic use
+        Requests Library basic use
+        Regular expression basis
+        BeautifulSoup 
+        PyQuery 
+        Selenium
+    3. Practical training
+        Use the Requests + regular expression to crawl the cat's eye movie
+        Analyze Ajax requests and grab today's headlines 
+        Use the Selenium simulation browser to grab Taobao merchandiser food information
+        Use Redis + Flask to maintain a dynamic proxy pool
+        Use proxy processing to crawl microsecond articles
+    4. Frame
+        PySpider framwork basic use and crawling TripAdvisor
+        PySpider architecture overview and usage
+        The Scrapy Framwork installation
+        The Scrapy framwork is basically used
+        The Scrapy command line details
+        The scrapy selector use
+        The Sciders in Sprapy
+        Use of item Pipeline in Scrapy
+        Use of Download MIddleware in Scrapy
+        crawls zhihu the user information
+    5.Distributed
+        Scrapy distributed principle and Scrapy-Redis source analysis
+        Scrapy distributed architecture crawl zhihu
+        Scrapy distributed deployment details
+
