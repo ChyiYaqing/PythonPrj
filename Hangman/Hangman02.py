@@ -8,6 +8,7 @@ to guess it by suggesting letters or numbers, within a certain number of guesses
 
 import sys
 import random
+import goslate # Free Google Translate API
 
 def main():
     print(
@@ -93,8 +94,12 @@ def main():
 
         if "-" not in word_guessed: # no blanks remaining
             print(("\nCongratulations! {} was the word").format(chosen_word))
+            gs = goslate.Goslate()
+            print(gs.translate(chosen_word, 'zh'))
         else: # loop must have ended because attempts reached 0
             print(("\nUnlucky! The word was {}.").format(chosen_word))
+            gs = goslate.Goslate()
+            print(gs.translate(chosen_word, 'zh'))
 
         print("\nWould you like to play again? [Y/N]\n")
 
