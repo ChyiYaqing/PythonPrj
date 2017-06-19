@@ -1,0 +1,15 @@
+Web scraping
+    Web scraping (web harvesting or web data extraction) is data scraping used for extracting data from websites.
+    -- Hypertext Transfer Protocol
+
+Scrape a web page is to download the page:
+    Python requests library
+    
+    import requests
+    page = requests.get("http://dataquestio.github.io/web-scraping-pages/simple.html")
+    page
+    Out[4]: <Response [200]>
+    page.status_code # which indicates if the page was downloaded successfully
+    page.content # print out the HTML content of the page using the content property
+
+    Use the BeautifulSoup library to parse this document

@@ -36,4 +36,44 @@ Course Outline:
         Scrapy distributed principle and Scrapy-Redis source analysis
         Scrapy distributed architecture crawl zhihu
         Scrapy distributed deployment details
+---------------------------------------------------------------------------------------------
+urllib3:
+    -- urllib3 is a powerful,sanity-friendly HTTP client for Python.
+         Thread safety
+         Connection pooling
+         Client-side SSL/TLS verification
+         File uploads with multipart encoding.
+         Helpers for retrying requests and dealing with HTTP redirects
+         Support for gzip and deflate encoding.
+         Proxy support for HTTP and SOCKS
+         100% test coverage.
+    ++>>> import urllib3 # import the urllib3 module
+    ++>>> http = urllib3.PoolManager() # PoolManager instance to make requests.
+    ++>>> r = http.request('GET', 'http://httpbin.org/robots.txt') # HTTPResponse object
+          r.data 
+    oo>>> Out[9]: b'User-agent: *\nDisallow: /deny\n'
+          r.status
+    oo>>> Out[10]: 200
+          r.headers
+    oo>>> Out[11]: HTTPHeaderDict({'Connection': 'keep-alive', 'Server': 'meinheld/0.6.1', 'Date': 'Mon, 19 Jun 2017 02:02:48 GMT', 'Content-Type': 'text/plain', 'Content-Length': '30', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': 'true', 'X-Powered-By': 'Flask', 'X-Processed-Time': '0.00072717666626', 'Via': '1.1 vegur'})
+    ++>>> import json
+          r = http.request('GET', 'http://httpbin.org/ip')
+          json.loads(r.data.decode('utf-8'))
+    oo>>> Out[14]: {'origin': '58.247.82.27'}
+    ++>>> r = http.request('GET','http://httpbin.org/headers',headers={'X-something':'value'}) # You can specify headers as a dictionary in the headers argument in request()
+    ++>>> json.loads(r.data.decode('utf-8'))['headers']
+    oo>>> Out[16]:
+{'Accept-Encoding': 'identity',
+ 'Connection': 'close',
+ 'Host': 'httpbin.org',
+ 'X-Something': 'value'}
+    ++>>> r = http.request('GET','http://httpbin.org/get', fields={'arg':'value'})
+    ++>>> json.loads(r.data.decode('utf-8'))[]
+    
 
+urllib -- URL handling modules
+    urllib is apckage that collects several modules for working with URLs:
+        urllib.request : for opening and reading URLs
+        urllib.error : containing the exceptions raised by urllib.request
+        urllib.parse : for parsing URLs
+        urllib.robotparser : for parsing robots.txt files
