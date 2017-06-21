@@ -1,0 +1,46 @@
+<!-- 
+    https://developer.mozilla.org/en-US/docs/Web/HTML/Element 
+    MDN MOZILLA DEVELOPER NETWORK 
+    
+    class, id properties.These special properties give HTML elements names,and make them easier to interact with when we're scraping.
+    Each element can only have one id.
+-->
+<!-- HTML documents must start with a type declaration  -->
+<!DOCTYPE html> 
+<!--The HTML document is contained between <html>and</html>-->
+<html>
+<!--The meta and script declaration of the HTML document is between <head> and </head>-->
+    <head></head>
+    <!--The visible part of the HTML document is between <body>and</body>tags-->
+    <body>
+    <!-- Title heading are defined with the <h1> through <h6> tags -->
+        <h1> First SCraping </h1>
+        <!-- Paragraphs are defined with the <p> tag The Class attribute is used to define equal styles for HTML tags with the same class -->
+        <p class="bold-paragraph">
+            Here's a paragraph of text!
+            <!-- <a> for hyperlinks The id attribute specifies a unique id for an HTML tag and the value must be unique within the HTML document -->
+            <a href="https://www.dataquest.io" id="learn-link">Learn Data Science Online</a>
+        </p>
+        <!--<table> for tables-->
+        <table>
+        <!--<tr> for table rows-->
+            <tr>
+            <!--<td> for table columns-->
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+                <td>D</td>
+            </tr>
+            <tr>
+                <td>å</td>
+                <td>∫</td>
+                <td>ç</td>
+                <td>´</td>
+            </tr>
+        </table>
+        <p class="bold-paragraph extra-large">
+            Here's a second paragraph of text!
+            <a href="https://www.python.org" class="extra-large">Python</a>
+        </p>
+    </body>
+</html>
