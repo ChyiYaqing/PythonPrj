@@ -2,11 +2,11 @@
 #-*- coding: utf-8 -*-
 #===========================================
 #
-#           FILE: Chapter4-TwitterAPI.py
+#           FILE: Chapter5-CSV.py
 #
 #           USAGE:
 #
-#   DESCRIPTION: The following code connects to the Twitter API and prints a JSON list of tweets containing the hashtag#python.
+#   DESCRIPTION:
 #
 #       OPTIONS: ----
 #  REQUIREMENTS: ----
@@ -31,26 +31,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #===================================================================
+"""
+CSV, or comma-separated values, is one of the most popular file formats in which to store spreadsheet data.
+Modifying a CSV file
 
-from twitter import *
+One common web-scraping task is to retrieve an HTML table and write it as a CSV file
+"""
+import csv
 
-AccessToken = '735437057145733120-eri6pEkxk7LRyYaUgOe0lHj8hOcu3alm'
-AccessTokenSecret = 'BskDnACNhZnC6mny97fi2328AxTZ6Ue2ab872nfdw5RPUA'
-ConsumerKey = 'TUQDFWLzHiv1lJPvEifU25pvIC'
-ConsumerSecret = 'iTqwBQLkMPh9caAJ8NpkWoubaxuG8UnaBsq7vzIRaG500lVK9c'
+csvFile = open("./test.csv","w+")
 
-t = Twitter(auth=OAuth(AccessToken,AccessTokenSecret,ConsumerKey,ConsumerSecret))
+try:
+    writer = csv.writer(csvFile)
+    writer.writerow(('number','number plus 2','number times 2'))
+    for i in range(10):
+        writer.writerow((1, i+2, i*2))
+finally:
+    csvFile.close()
 
-# This is the result of sending a single tweet.
-#statusUpdate = t.statuses.update(status='Hello, world!')
-#print(statusUpdate)
 
-#pythonTweets = t.search.tweets(q = "#python")
-#print(pythonTweets)
-
-# In this case, we are asking for the last five tweets that were posted to @montypython's timeline
-pythonStatuses = t.statuses.user_timeline(screen_name="montypython", count=5)
-print(pythonStatuses)
 
 ########################################################
 #   _____ _   _ _    _    ___      _                   #

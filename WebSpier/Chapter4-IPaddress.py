@@ -2,11 +2,11 @@
 #-*- coding: utf-8 -*-
 #===========================================
 #
-#           FILE: Chapter4-TwitterAPI.py
+#           FILE: Chapter4-IPaddress.py
 #
 #           USAGE:
 #
-#   DESCRIPTION: The following code connects to the Twitter API and prints a JSON list of tweets containing the hashtag#python.
+#   DESCRIPTION:
 #
 #       OPTIONS: ----
 #  REQUIREMENTS: ----
@@ -31,26 +31,60 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #===================================================================
+from urllib.request import urlopen
+from urllib.error import HTTPError
+from bs4 import BeautifulSoup
+import datetime
+import random
+import re
 
-from twitter import *
+random.seed(datetime.datetime.now())
 
-AccessToken = '735437057145733120-eri6pEkxk7LRyYaUgOe0lHj8hOcu3alm'
-AccessTokenSecret = 'BskDnACNhZnC6mny97fi2328AxTZ6Ue2ab872nfdw5RPUA'
-ConsumerKey = 'TUQDFWLzHiv1lJPvEifU25pvIC'
-ConsumerSecret = 'iTqwBQLkMPh9caAJ8NpkWoubaxuG8UnaBsq7vzIRaG500lVK9c'
+def getLinks(articleUrl):
+    html = urlopen("http://en.wikipedia.org"+articleUrl)
+    bsObj = BeautifulSoup(html, "html.parser")
 
-t = Twitter(auth=OAuth(AccessToken,AccessTokenSecret,ConsumerKey,ConsumerSecret))
+    return bsObj.find("div",{"id":"bodyContent"}).findAll("a",href=re.compile("^(/wiki/)((?!:).)*$"))
 
-# This is the result of sending a single tweet.
-#statusUpdate = t.statuses.update(status='Hello, world!')
-#print(statusUpdate)
+def getHistoryIPs(pageUrl):
+    # Format of revision history pages is:
+    # http://en.wikipedia.org/w/index.php?title=Title_in_URL&action=history
+    pageUrl = pageUrl.replace("/wiki/", "")
+    historyUrl = "http://en.wikipedia.org/w/index.php?title="+pageUrl+"&action=history"
+    print("history url is: "+historyUrl)
+    html = urlopen(historyUrl)
+    bsObj = BeautifulSoup(html, "html.parser")
 
-#pythonTweets = t.search.tweets(q = "#python")
-#print(pythonTweets)
+    #finds only the links with class "mw-anonuserlink" which has IP addresses
+    # instead of usernames indicating an anonymous user with an IP address, rather than a username and returns it as a set
+    ipAddresses = bsObj.findAll("a", {"class":"mw-anouserlink"})
+    addressList = set()
+    for ipAddress in ipAddresses:
+        addressList.add(ipAddress.get_text())
+    return addressList
 
-# In this case, we are asking for the last five tweets that were posted to @montypython's timeline
-pythonStatuses = t.statuses.user_timeline(screen_name="montypython", count=5)
-print(pythonStatuses)
+def getCountry(ipAddress):
+    try:
+        response = urlopen("http://freegeoip.net/json/"+ipAddress).read().decode('utf-8')
+    except HTTPError:
+        return None
+    responseJson = json.loads(response)
+    return responseJson.get("country_code")
+
+links = getLinks("/wiki/Python_(programming_language)")
+
+while(len(links)) > 0:
+    for link in links:
+        print("--------------------")
+        historyIPs = getHistoryIPs(link.attrs["href"])
+        for historyIP in historyIPs:
+            country = getCountry(historyIP)
+            if country is not None:
+                print(historyIP+" is from "+country)
+
+    newLink = links[random.randint(0, len(links)-1)].attrs["href"]
+    links = getLinks(newLink)
+
 
 ########################################################
 #   _____ _   _ _    _    ___      _                   #

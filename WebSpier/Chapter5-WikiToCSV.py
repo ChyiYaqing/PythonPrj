@@ -2,11 +2,11 @@
 #-*- coding: utf-8 -*-
 #===========================================
 #
-#           FILE: Chapter4-TwitterAPI.py
+#           FILE: Chapter5-WikiToCSV.py
 #
 #           USAGE:
 #
-#   DESCRIPTION: The following code connects to the Twitter API and prints a JSON list of tweets containing the hashtag#python.
+#   DESCRIPTION:
 #
 #       OPTIONS: ----
 #  REQUIREMENTS: ----
@@ -31,26 +31,35 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #===================================================================
+"""
+http://en.wikipedia.org/wiki/Comparison_of_text_editors
+Wikipedia's Comparison of Text Editors provides a fairly complex HTML table,complete with color coding, links sorting, and other HTML garbage that needs to be discarded before it can be written to CSV
 
-from twitter import *
+"""
+import csv
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
-AccessToken = '735437057145733120-eri6pEkxk7LRyYaUgOe0lHj8hOcu3alm'
-AccessTokenSecret = 'BskDnACNhZnC6mny97fi2328AxTZ6Ue2ab872nfdw5RPUA'
-ConsumerKey = 'TUQDFWLzHiv1lJPvEifU25pvIC'
-ConsumerSecret = 'iTqwBQLkMPh9caAJ8NpkWoubaxuG8UnaBsq7vzIRaG500lVK9c'
+html = urlopen("http://en.wikipedia.org/wiki/Comparison_of_text_editors")
+bsObj = BeautifulSoup(html, "html.parser")
 
-t = Twitter(auth=OAuth(AccessToken,AccessTokenSecret,ConsumerKey,ConsumerSecret))
+# The main comparson table is currently the first table on the page
+table = bsObj.findAll("table",{"class":"wikitable"})[0]
+rows = table.findAll("tr")
 
-# This is the result of sending a single tweet.
-#statusUpdate = t.statuses.update(status='Hello, world!')
-#print(statusUpdate)
+csvFile = open("./files/editors.csv", 'wt')
+writer = csv.writer(csvFile)
 
-#pythonTweets = t.search.tweets(q = "#python")
-#print(pythonTweets)
+try:
+    for row in rows:
+        csvRow = []
+    for cell in row.findAll(['td','th']):
+        csvRow.append(cell.get_text())
+        writer.writerow(csvRow)
+finally:
+    csvFile.close()
 
-# In this case, we are asking for the last five tweets that were posted to @montypython's timeline
-pythonStatuses = t.statuses.user_timeline(screen_name="montypython", count=5)
-print(pythonStatuses)
+
 
 ########################################################
 #   _____ _   _ _    _    ___      _                   #

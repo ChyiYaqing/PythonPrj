@@ -2,11 +2,11 @@
 #-*- coding: utf-8 -*-
 #===========================================
 #
-#           FILE: Chapter4-TwitterAPI.py
+#           FILE: Chapter5-MySQL.py
 #
 #           USAGE:
 #
-#   DESCRIPTION: The following code connects to the Twitter API and prints a JSON list of tweets containing the hashtag#python.
+#   DESCRIPTION:
 #
 #       OPTIONS: ----
 #  REQUIREMENTS: ----
@@ -31,26 +31,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #===================================================================
+"""
+MySQL is the most popular open source relational database management system today
 
-from twitter import *
+Homebrew is a great open soure project with very good Python package integration.
 
-AccessToken = '735437057145733120-eri6pEkxk7LRyYaUgOe0lHj8hOcu3alm'
-AccessTokenSecret = 'BskDnACNhZnC6mny97fi2328AxTZ6Ue2ab872nfdw5RPUA'
-ConsumerKey = 'TUQDFWLzHiv1lJPvEifU25pvIC'
-ConsumerSecret = 'iTqwBQLkMPh9caAJ8NpkWoubaxuG8UnaBsq7vzIRaG500lVK9c'
-
-t = Twitter(auth=OAuth(AccessToken,AccessTokenSecret,ConsumerKey,ConsumerSecret))
-
-# This is the result of sending a single tweet.
-#statusUpdate = t.statuses.update(status='Hello, world!')
-#print(statusUpdate)
-
-#pythonTweets = t.search.tweets(q = "#python")
-#print(pythonTweets)
-
-# In this case, we are asking for the last five tweets that were posted to @montypython's timeline
-pythonStatuses = t.statuses.user_timeline(screen_name="montypython", count=5)
-print(pythonStatuses)
+"""
 
 ########################################################
 #   _____ _   _ _    _    ___      _                   #
