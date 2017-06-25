@@ -3,12 +3,12 @@ This is the code for "How to Make a Prediction - Intro to Deep Learning #1' by S
 
 ##Overview
 This is the code for [this](https://youtu.be/vOppzHpvTiQ) video by Siraj Raval on Youtube. This is the 1st episode in my 'Intro to Deep Learning' series. The goal is to predict an animal's body weight given it's brain weight. The model we'll be using is called [Linear Regression](http://www.statisticssolutions.com/what-is-linear-regression/). The dataset we're using to train our model is a list of brain weight and body weight measurements from a bunch of animals. We'll fit our line to the data
-using the scikit learn machine learning library, then plot our graph using matplotlib.Traditionary, programming has been about defining single step for a program to reach an outcome,The machine only flips that approach.With machine leanring, we define the outcome.
+using the scikit learn machine learning library, then plot our graph using matplotlib.Traditionary, programming has been about defining single step for a program to reach an outcome. The machine learning is about defining the outcome, and our program will learn the steps to get there.
 
-And you know that rule that says you need 10,000 hours to master any skill  "Neural Network" -- When you use a neural network that's not just one or two, but many layers deep to make a prediction, we call that deep leanring. It's a subset of machine leanring that has outperformed. We usually class learning into three different styles:
-    -- supervised leanring 监督学习-- it just have to learn the mapping between the labels and data.
+And you know that rule that says you need 10,000 hours to master any skill  "Neural Network" -- When you use a neural network that's not just one or two, but many layers deep to make a prediction, we call that deep learning. It's a subset of machine learning that has outperformed. We usually class learning into three different styles:
+    -- supervised learning 监督学习-- it just have to learn the mapping between the labels and data.
     -- Unsupervised Learning 非监督学习 -- this is when we give a model a data set without labels.It's gets no feedback on what's correct or not.It has to learn by itself.
-    -- Renforcement Leanring 增强学习 --  
+    -- Reinforcement learning 增强学习 --  
 
 ##Dependencies
 
